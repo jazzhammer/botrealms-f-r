@@ -11,6 +11,12 @@ export default function Bots() {
     setBot(created);
     setMode('selected');
   }
+
+  const onUpdate = (updated) => {
+    setBot(updated);
+    setMode('selected');
+  }
+
   return (
     <div className={"flex flex-col h-full"}>
       <div className={"flex flex-row"}>
@@ -25,7 +31,7 @@ export default function Bots() {
       </div>
       <div className={"flex flex-col h-full"}>
         {mode === 'new' && <NewBot onCreate={onCreate}></NewBot>}
-        {mode === 'selected' && <BotDetails bot={bot}></BotDetails>}
+        {mode === 'selected' && <BotDetails bot={bot} onUpdate={onUpdate}></BotDetails>}
       </div>
     </div>
   );
