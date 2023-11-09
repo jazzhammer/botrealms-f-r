@@ -16,6 +16,7 @@ export default function BotDetails({bot, onUpdate}) {
     const updateJson = await updateResult.json();
     onUpdate(updateJson);
     setMode('view');
+    setName(updateJson.name)
   }
   return (
     <div>

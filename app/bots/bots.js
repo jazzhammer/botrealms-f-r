@@ -15,6 +15,16 @@ export default function Bots() {
     setMode('selected');
   }
 
+  const onUpdate = (updated) => {
+    setBot(updated);
+    setMode('selected');
+  }
+
+  const onSelectBot = (selected) => {
+    setBot(selected);
+    setMode('selected')
+  }
+
   const onBots = (bots) => {
     setBots(bots);
     console.log(`bots: ${JSON.stringify(bots)}`);
@@ -39,7 +49,7 @@ export default function Bots() {
           <div className={"flex flex-col"}>
             <SearchBots onBots={onBots}></SearchBots>
             <div className={"mt-3 ml-2"}>
-              <ListBots bots={bots}></ListBots>
+              <ListBots bots={bots} onSelect={onSelectBot}></ListBots>
             </div>
           </div>
         }
