@@ -1,6 +1,7 @@
 "use client"
 import {useState, createContext, useReducer} from "react";
 import Bots from "./bots/bots"
+import Equipments from './equipment/equipment';
 import SayingContext from "@/app/context/saying-context";
 
 export default function Home() {
@@ -13,14 +14,17 @@ export default function Home() {
         <div className="mb-2 pb-3 flex flex-row font-bold w-full border-b border-white pl-2 pr-2" data-testid="home-title">botrealms</div>
         <div className={"flex flex-row pl-2 "}>
           <div className={"flex flex-col w-2/12"}>
-            <div className={"hover:underline cursor-pointer " + (mode === 'bots' ? 'underline' : '')}
+            <div className={"pl-2 mr-2 hover:underline cursor-pointer " + (mode === 'bots' ? 'underline bg-amber-950' : '')}
                  onClick={()=>setMode('bots')}>bots</div>
-            <div className={"hover:underline cursor-pointer " + (mode === 'matches' ? 'underline' : '')}
+            <div className={"pl-2 mr-2 hover:underline cursor-pointer " + (mode === 'equipment' ? 'underline bg-amber-950' : '')}
+                 onClick={()=>setMode('equipment')}>equipment</div>
+            <div className={"pl-2 mr-2 hover:underline cursor-pointer " + (mode === 'matches' ? 'underline bg-amber-950' : '')}
                  onClick={()=>setMode('matches')}>matches</div>
           </div>
           <div className={"h-screen flex flex-col w-10/12 border-l border-white"}>
             <div className={"pl-2 pr-2"}>
               {mode === 'bots' && <Bots></Bots>}
+              {mode === 'equipment' && <Equipments></Equipments>}
             </div>
           </div>
         </div>

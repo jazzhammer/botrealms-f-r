@@ -28,7 +28,6 @@ export default function NewBot({
   }
   return (
     <div className={"ml-2 p-2 border border-1 border-amber-600 mt-2 h-full flex flex-col w-64"}>
-      <div className={"text-white"}>{saying}</div>
       <div className={"flex flex-row"}>
         <div className={"w-16"}>name</div>
         <div className={"w-36"}><input onChange={(e)=>setName(e.target.value)} type="text" className={"w-36 text-black pl-2"}/></div>
