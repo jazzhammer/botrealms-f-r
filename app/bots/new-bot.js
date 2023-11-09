@@ -1,12 +1,16 @@
 "use client"
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {API_BASE_URL} from "@/app/env/env";
+import SayingContext from "@/app/context/saying-context";
+
 
 export default function NewBot({
     onCreate
   }) {
   const [canCreate, setCanCreate] = useState(false);
   const [name, setName] = useState('');
+  const saying = useContext(SayingContext);
+
   useEffect(()=>{
     setCanCreate(name.trim().length > 0);
   }, [name]);
@@ -24,6 +28,7 @@ export default function NewBot({
   }
   return (
     <div className={"ml-2 p-2 border border-1 border-amber-600 mt-2 h-full flex flex-col w-64"}>
+      <div className={"text-white"}>{saying}</div>
       <div className={"flex flex-row"}>
         <div className={"w-16"}>name</div>
         <div className={"w-36"}><input onChange={(e)=>setName(e.target.value)} type="text" className={"w-36 text-black pl-2"}/></div>

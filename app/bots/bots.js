@@ -2,19 +2,22 @@
 import {useState} from "react";
 import NewBot from "@/app/bots/new-bot";
 import BotDetails from "@/app/bots/bot-details";
+import SearchBots from "@/app/bots/search-bots";
+import ListBots from "@/app/bots/list-bots";
 
 export default function Bots() {
   const [mode, setMode] = useState('');
   const [bot, setBot] = useState();
+  const [bots, setBots] = useState();
 
   const onCreate = (created) => {
     setBot(created);
     setMode('selected');
   }
 
-  const onUpdate = (updated) => {
-    setBot(updated);
-    setMode('selected');
+  const onBots = (bots) => {
+    setBots(bots);
+    console.log(`bots: ${JSON.stringify(bots)}`);
   }
 
   return (
@@ -32,6 +35,14 @@ export default function Bots() {
       <div className={"flex flex-col h-full"}>
         {mode === 'new' && <NewBot onCreate={onCreate}></NewBot>}
         {mode === 'selected' && <BotDetails bot={bot} onUpdate={onUpdate}></BotDetails>}
+        {mode === 'search' &&
+          <div className={"flex flex-col"}>
+            <SearchBots onBots={onBots}></SearchBots>
+            <div className={"mt-3 ml-2"}>
+              <ListBots bots={bots}></ListBots>
+            </div>
+          </div>
+        }
       </div>
     </div>
   );
