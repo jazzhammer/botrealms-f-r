@@ -2,7 +2,8 @@ export default function ListEquipments({equipments, onSelect}) {
   let rows = '';
   if (equipments && equipments.map) {
     rows = equipments.map((equipment) => (
-        <div className="flex flex-row cursor-pointer hover:underline" key={`equipment.equipment_id`} onClick={()=>onSelect(equipment)}>
+        <div className="flex flex-row cursor-pointer hover:underline"
+             key={equipment.equipment_id} onClick={()=>onSelect(equipment)}>
           <div className="text-center border border-green-800" style={{width: '408px'}}>{`...${equipment.equipment_id.substring(equipment.equipment_id.lastIndexOf('-') + 1)}`}</div>
           <div className="text-center w-36 border border-green-800">{equipment.name}</div>
           <div className="text-center w-36 border border-green-800">{equipment.type}</div>

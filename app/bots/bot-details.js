@@ -1,10 +1,26 @@
 "use client"
 
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import ListEquipments from "@/app/equipment/list-equipments";
 
 export default function BotDetails({bot, onUpdate}) {
   const [mode, setMode] = useState('view');
   const [name, setName] = useState(bot.name);
+
+  const [equipments, setEquipments] = useState([]);
+  useEffect(() => {
+    if (bot) {
+      const getEquipment = async () => {
+        const equipmentsResult = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/bot_equipments?bot_id=${bot.bot_id}`, {
+          method: 'GET'
+        });
+        const equipmentsJson = await equipmentsResult.json();
+        setEquipments(equipmentsJson);
+      }
+      getEquipment();
+    }
+  }, [bot]);
+
   const updateBot = async () => {
     const updateResult = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/bots`, {
       method: 'PUT',
@@ -16,7 +32,10 @@ export default function BotDetails({bot, onUpdate}) {
     const updateJson = await updateResult.json();
     onUpdate(updateJson);
     setMode('view');
-    setName(updateJson.name)
+    setName(updateJson.name);
+
+
+
   }
   return (
     <div>
@@ -56,6 +75,10 @@ export default function BotDetails({bot, onUpdate}) {
           </div>
         </div>
       }
+      <div className={"flex flex-col mt-2"}>
+        <div className={"mb-1 bg-green-200 pl-2 text-black"}>equipment assembly:</div>
+        <ListEquipments equipments={equipments}></ListEquipments>
+      </div>
     </div>
   );
 }

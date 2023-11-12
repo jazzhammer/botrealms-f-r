@@ -71,7 +71,6 @@ export default function RealmTopograph() {
       <div className={"bg-white"} style={{ width: 500, height: 500}}>
         <canvas ref={realmTopograph} style={{width: '500px', height: '500px', }}></canvas>
       </div>
-
     </div>
   )
 }
