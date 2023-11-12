@@ -5,6 +5,7 @@ import Equipments from './equipment/equipment';
 import SayingContext from "@/app/context/saying-context";
 import {io} from 'socket.io-client';
 import Botscripts from "@/app/botscripts/botscript";
+import Realms from "@/app/realms/realms";
 
 const socket = io(`http://localhost:${process.env.NEXT_PUBLIC_WEBSOCKET_PORT}`)
 socket.on('connect', () => {
@@ -37,12 +38,15 @@ export default function Home() {
                  onClick={()=>setMode('botscripts')}>botscripts</div>
             <div className={"pl-2 mr-2 hover:underline cursor-pointer " + (mode === 'matches' ? 'underline bg-amber-950' : '')}
                  onClick={()=>setMode('matches')}>matches</div>
+            <div className={"pl-2 mr-2 hover:underline cursor-pointer " + (mode === 'realms' ? 'underline bg-amber-950' : '')}
+                 onClick={()=>setMode('realms')}>realms</div>
           </div>
           <div className={"h-screen flex flex-col w-10/12 border-l border-white"}>
             <div className={"pl-2 pr-2"}>
               {mode === 'bots' && <Bots></Bots>}
               {mode === 'botscripts' && <Botscripts></Botscripts>}
               {mode === 'equipment' && <Equipments></Equipments>}
+              {mode === 'realms' && <Realms></Realms>}
 
             </div>
           </div>
