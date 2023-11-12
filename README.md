@@ -14,6 +14,12 @@ application ideas that enhance robotics coursework.
 
 ## Run the development server:
 
-npm run dev
+npm run electron-dev
+
+this starts:
+
+- the react dev server at port 3000, and
+- the electron app that navigates to the root of the react app
+
 
  
