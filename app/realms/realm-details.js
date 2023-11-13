@@ -3,7 +3,7 @@
 import {useState} from "react";
 import RealmTopograph from "@/app/realms/realm-topograph";
 
-export default function RealmDetails({realm, onUpdate}) {
+export default function RealmDetails({realm, onUpdate, realmSocket}) {
   const [mode, setMode] = useState('view');
   const [name, setName] = useState(realm.name);
   const updateRealm = async () => {
@@ -35,7 +35,7 @@ export default function RealmDetails({realm, onUpdate}) {
             <div className={"w-124"}><button className={"bg-amber-600 text-black pl-2 pr-2"} onClick={() => setMode('edit')}>edit</button></div>
           </div>
         </div>
-        <RealmTopograph></RealmTopograph>
+        <RealmTopograph realmSocket={realmSocket} realm={realm}></RealmTopograph>
         </div>
       }
       {mode === 'edit' &&

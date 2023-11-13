@@ -1,7 +1,8 @@
 import {useEffect, useRef, useState} from "react";
 import RealmStats from "@/app/realms/realm-stats";
+import RealmBots from "@/app/realms/bots/realm-bots";
 
-export default function RealmTopograph() {
+export default function RealmTopograph({realmSocket, realm}) {
   const realmTopograph = useRef();
   const DEFAULT_HEADING = 0;
   const [topographContext, setTopographicContext] = useState();
@@ -13,6 +14,7 @@ export default function RealmTopograph() {
   const [canRenderSprite, setCanRenderSprite] = useState(false);
   const [canRenderTerrain, setCanRenderTerrain] = useState(false);
   const [realmStats, setRealmStats] = useState();
+  const [feedOn, setFeedOn] = useState(false);
 
   const terrain = new Image();
   terrain.src = 'assets/realms/mars-topopgraph.gif';
@@ -25,6 +27,8 @@ export default function RealmTopograph() {
   navBlue.onload = () => {
     setCanRenderSprite(true);
   }
+
+  const [mode, setMode] = useState('stats');
 
   useEffect(() => {
     if (realmTopograph) {
@@ -78,16 +82,26 @@ export default function RealmTopograph() {
   return (
     <div className={"flex flex-row"}>
       <div className={"flex flex-col w=1/2"}>
-        <div className={"flex flex-row bg-amber-500 mb-2 mt-2 text-black pl-2"}>
-          <div>realm topograph:</div>
-          <div><button value={"jump"} onClick={jumpSprites}>jump</button></div>
+        <div className={"flex flex-row mb-2 mt-2 text-white pl-2"}>
+          <div className={"w-24"}>topograph</div>
+          <div>feed: </div>
+          {feedOn && <div className={"text-green-500"}>on</div>}
+          {!feedOn && <div className={"text-amber-500"}>off</div>}
+          {/*<div><button value={"jump"} onClick={jumpSprites}>jump</button></div>*/}
         </div>
         <div className={"bg-white"} style={{ width: 500, height: 500}}>
           <canvas ref={realmTopograph} style={{width: '500px', height: '500px', }}></canvas>
         </div>
       </div>
       <div className={"flex flex-col w=1/2"}>
-        <RealmStats stats={realmStats}></RealmStats>
+        <div className={"flex flex-row"}>
+          <div className={"pl-2 pr-2 hover:underline cursor-pointer" + (mode === 'stats' ? ' underline bg-blue-800': '')} onClick={()=>setMode('stats')}>stats</div>
+          <div className={"pl-2 pr-2 hover:underline cursor-pointer" + (mode === 'bots' ? ' underline bg-blue-800': '')} onClick={()=>setMode('bots')}>bots</div>
+        </div>
+        <div className={"ml-2"}>
+          {mode === 'stats' && <RealmStats stats={realmStats}></RealmStats>}
+          {mode === 'bots' && <RealmBots realm={realm}></RealmBots>}
+        </div>
       </div>
     </div>
   )
