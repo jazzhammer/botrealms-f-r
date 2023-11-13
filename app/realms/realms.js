@@ -4,11 +4,28 @@ import NewRealm from "@/app/realms/new-realm";
 import RealmDetails from "@/app/realms/realm-details";
 import SearchRealms from "@/app/realms/search-realms";
 import ListRealms from "@/app/realms/list-realms";
+import {io} from "socket.io-client";
+
 
 export default function Realms() {
+  const [realmSocket, setRealmSocket] = useState();
+  const [realmData, setRealmData] = useState();
   const [mode, setMode] = useState('');
   const [realm, setRealm] = useState();
   const [realms, setRealms] = useState();
+
+  const connectRealm = () => {
+    const socket = io(`http://localhost:${process.env.NEXT_PUBLIC_WEBSOCKET_PORT}`)
+    socket.on('connect', () => {
+      console.log(`connected to realms host, id:${socket.id}`);
+    });
+    setRealmSocket(socket);
+    socket.on('realm-data', (realmData) => {
+      console.log(`realm-data: received`);
+      setRealmData(realmData);
+    })
+
+  }
 
   const onCreate = (created) => {
     setRealm(created);
@@ -27,7 +44,6 @@ export default function Realms() {
 
   const onRealms = (realms) => {
     setRealms(realms);
-    console.log(`realms: ${JSON.stringify(realms)}`);
   }
 
   return (

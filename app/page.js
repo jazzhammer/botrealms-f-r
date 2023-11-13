@@ -3,22 +3,9 @@ import {useState, createContext, useReducer} from "react";
 import Bots from "./bots/bots"
 import Equipments from './equipment/equipment';
 import SayingContext from "@/app/context/saying-context";
-import {io} from 'socket.io-client';
 import Botscripts from "@/app/botscripts/botscript";
 import Realms from "@/app/realms/realms";
 
-const socket = io(`http://localhost:${process.env.NEXT_PUBLIC_WEBSOCKET_PORT}`)
-socket.on('connect', () => {
-  console.log(`connected to realms host, id:${socket.id}`);
-});
-socket.on('realm-data', (realmData) => {
-  console.log(`realm-data: ${JSON.stringify(realmData)}`);
-})
-
-socket.emit('instruction', {
-  equipmentId: 'asdf',
-  command: 'on'
-});
 
 export default function Home() {
 
