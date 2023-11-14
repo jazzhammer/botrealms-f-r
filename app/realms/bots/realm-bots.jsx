@@ -11,7 +11,7 @@ export default function RealmBots({realm}) {
         <div className={"w-24 cursor-pointer hover:underline text-center" + (mode==='available' ? ' underline bg-blue-800': '')} onClick={() => setMode('available')}>available</div>
       </div>
       <div>
-        {   mode === 'deployed' && <DeployedBots></DeployedBots> }
+        {   mode === 'deployed' && <DeployedBots realm={realm}></DeployedBots> }
         {   mode === 'available' && <AvailableBots realm={realm}></AvailableBots> }
       </div>
     </div>
